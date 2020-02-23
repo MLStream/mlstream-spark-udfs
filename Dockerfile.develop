@@ -1,0 +1,94 @@
+# Dockerfile.develop is for use by mlstream-spark-udfs developers only
+
+FROM alpine:3.10
+
+# Java Version: Open JDK 8
+# SBT Version: 1.2.8
+# Scala Version: 2.11.12
+# Spark Version: 2.4.4
+# Python Version: 3.7
+
+RUN apk add --no-cache curl bash openjdk8-jre python3 py3-pip make && \
+	python3 -m pip install pyspark setuptools && \
+	ln -s /usr/bin/python3 /usr/bin/python
+
+
+# >> fixuid
+# See https://github.com/boxboat/fixuid
+
+# alpine
+RUN addgroup -g 1000 docker && \
+    adduser -u 1000 -G docker -h /home/docker -s /bin/sh -D docker
+
+
+RUN USER=docker && \
+    GROUP=docker && \
+    curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.4/fixuid-0.4-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
+    chown root:root /usr/local/bin/fixuid && \
+    chmod 4755 /usr/local/bin/fixuid && \
+    mkdir -p /etc/fixuid && \
+    printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
+# << fixuid
+
+
+RUN apk add --no-cache \
+    bash \
+    bzip2 \
+    ca-certificates \
+    curl \
+    file \
+    gcc \
+    g++ \
+    git \
+    libressl \
+    libsodium-dev \
+    make \
+    openssh-client \
+    patch \
+    readline-dev \
+    tar \
+    tini \
+    wget
+
+RUN apk add --no-cache py3-zmq
+
+RUN pip3 install jupyterlab
+
+RUN apk add --no-cache vim
+
+USER docker:docker
+
+WORKDIR /home/docker
+
+RUN wget https://piccolo.link/sbt-1.2.8.tgz && \
+	tar -xzvf sbt-1.2.8.tgz && \
+	/home/docker/sbt/bin/sbt version
+
+ENV PATH=/home/docker/sbt/bin:$PATH
+
+# we prebuilt the jar file, as this docker image is just for python
+WORKDIR /home/docker/prebuilt-spark
+COPY spark ./
+RUN sbt package
+
+ENV MLSTREAM_UDFS_JAR_PATH="/home/docker/prebuilt-spark/target/scala-2.11/mlstream-spark-udfs_2.11-0.1-SNAPSHOT.jar"
+
+WORKDIR /home/docker/spark-udfs
+
+#RUN pip3 install --user jupyterlab
+
+EXPOSE 8888 4040
+
+USER docker:docker
+
+ENV PYTHONPATH=/home/docker/spark-udfs/pyspark:"$PYTHONPATH"
+
+ENV SPARK_SUBMIT_OPTIONS="--jars "$MLSTREAM_UDFS_JAR_PATH""
+# --num-executors 1 --driver-memory 4g --executor-memory 4g"
+
+COPY develop/jupyter_notebook_config.py /home/docker/.jupyter/jupyter_notebook_config.py
+
+ENTRYPOINT ["fixuid"]
+
+# install vim
+
