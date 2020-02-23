@@ -23,56 +23,31 @@ Objectives:
 | approx_topk   |  Returns the most frequent items using a fast approximation algorithm with limited memory   | SELECT approx_topk(ip_address, 1000, "10MB") FROM dataset | Available |
 | approx_cond_topk   |  Returns the most frequent items conditioned on anyother item using a fast approximation algorithm with limited memory   | NA | In Development |
 
-
-
 # Getting Started
 
 ## Start with a Prepared Docker Image with PySpark and Jupyter
 
-TODO
 
-## Installing From Scratch
+1. Browse the [Jupyter notebooks](https://github.com/MLStream/mlstream-spark-udfs/tree/master/notebooks).
 
-TODO: 
-
-1. Install pip package
-
-TODO: may look like this
+2. Clone the repository
 
 ```
-pip install --index-url https://github.com/MLStream/mlstream-spark-udfs/archive/mlstream_spark_udfs_v1.tgz/ mlstream_spark_udfs
+git clone git@github.com:MLStream/mlstream-spark-udfs.git
 ```
 
-Start pyspark with the correct jar
+3. Run the demo (Linux and Mac only)
 
-2. pyspark --jars "$(mlstream_spark_udfs --jar_path)"
+The following command starts a demo Jupyter server which is ready to use with local files.
 
-3. Run a simple example
-
-```
-import mlstream_spark_udfs as udfs
-
-udfs.registerUDFs(spark)
-
-sample_df = udfs.sample_data.topk_data()
-
-sample_df.registerTempTable("topk_data")
-
-spark.sql.show("""
-TODO
-""")
-```
-
-4. Read the [documentation](https://github.com/MLStream/mlstream-spark-udfs-docs) and browse 
-the [Jupyter notebooks](https://github.com/MLStream/mlstream-spark-udfs/notebooks).
-
-The following command starts a demo Jupyter server which is ready to use with local files (requires cloning of the repository).
- 
 
 ```
 ./demo.sh
 ```
 
+# Install via Python pip or as a Spark Package
+
+TODO
 
 # Disclaimer
 
