@@ -7,6 +7,8 @@ Available for both Scala and Python.
 
 # For Data Scientists and Engineers using Spark
 
+Objectives:
+
 - "As a data scientist, I can get more done by using SQL functions" 
 
 - "As a data engineer, I can get real-time aggregations via SQL functions"
@@ -31,7 +33,7 @@ TODO
 
 ## Installing From Scratch
 
-TODO: does not still work
+TODO: 
 
 1. Install pip package
 
