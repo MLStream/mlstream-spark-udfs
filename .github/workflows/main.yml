@@ -11,12 +11,12 @@ jobs:
       uses: actions/checkout@v1 # this is an action by github
     - name: Spark test (Scala)
       id: spark_test
-      uses: MLStream/mlstream-spark-udfs/actions@actions_v1 # this is a release in github
+      uses: MLStream/mlstream-spark-udfs/actions@actions_v1.1 # this is a release in github
       with:
         run-command: "cd spark && sbt test"
     - name: Pyspark test (Python)
       id: pyspark_test
-      uses: MLStream/mlstream-spark-udfs/actions@actions_v1 # this is a release in github
+      uses: MLStream/mlstream-spark-udfs/actions@actions_v1.1 # this is a release in github
       with:
         run-command: "cd pyspark && make integ_test"
 
