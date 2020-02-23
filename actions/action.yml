@@ -1,0 +1,16 @@
+name: 'MLStreamBuilder'
+description: 'Creates a builder image'
+inputs:
+  run-command:
+    description: 'What make target to run'
+    required: true
+    default: 'pwd'
+outputs:
+  status:
+    description: 'Status of the operation'
+runs:
+  using: 'docker'
+  image: '../Dockerfile'
+  args:
+    - '-c'
+    - ${{ inputs.run-command }}

@@ -1,0 +1,4 @@
+dist/
+jars/*.jar
+**/__pycache__/*
+mlstream_spark_udfs.egg-info/
