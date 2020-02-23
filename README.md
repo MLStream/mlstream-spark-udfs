@@ -1,4 +1,4 @@
-# Handy Spark tools accessible from Spark SQL
+# Handy Spark Tools Accessible From Spark SQL
 
 Spark and PySpark packages that extend Apache Spark (UDFs) with additional SQL functions.
 Available for both Scala and Python.
