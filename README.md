@@ -3,7 +3,7 @@
 Spark and PySpark packages that extend Apache Spark (UDFs) with additional SQL functions.
 Available for both Scala and Python.
 
-[![Build Status](https://github.com/MLStream/mlstream-spark-udfs/workflows/build/badge.svg)](https://github.com/MLStream/mlstream-spark-udfs/actions)
+[![Build Status](https://github.com/MLStream/mlstream-spark-udfs/workflows/build/badge.svg?branch=master)](https://github.com/MLStream/mlstream-spark-udfs/actions)
 
 # For Data Scientists and Engineers using Spark
 
