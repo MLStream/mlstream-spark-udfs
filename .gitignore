@@ -3,5 +3,5 @@ metastore_db/
 target/
 .ipynb_checkpoints/
 __pycache__/
-jars/
+./pyspark/jars/*.jars
 derby.log
